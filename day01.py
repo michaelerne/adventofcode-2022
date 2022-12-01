@@ -2,18 +2,14 @@ from run_util import run_puzzle
 
 
 def part_a(data):
-    elfes = [x for x in data.split('\n\n')]
-    calories = []
-    for elf in elfes:
-        calories.append(sum([int(x) for x in elf.split('\n')]))
+    elfes = [chunk for chunk in data.split('\n\n')]
+    calories = [sum([int(line) for line in elf.split('\n')]) for elf in elfes]
     return max(calories)
 
 
 def part_b(data):
-    elfes = [x for x in data.split('\n\n')]
-    calories = []
-    for elf in elfes:
-        calories.append(sum([int(x) for x in elf.split('\n')]))
+    elfes = [chunk for chunk in data.split('\n\n')]
+    calories = [sum([int(line) for line in elf.split('\n')]) for elf in elfes]
     return sum(sorted(calories, reverse=True)[0:3])
 
 
