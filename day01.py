@@ -1,15 +1,21 @@
+from typing import List
+
 from run_util import run_puzzle
 
 
-def part_a(data):
+def parse_data(data) -> List[int]:
     elfes = [chunk for chunk in data.split('\n\n')]
     calories = [sum([int(line) for line in elf.split('\n')]) for elf in elfes]
+    return calories
+
+
+def part_a(data):
+    calories = parse_data(data)
     return max(calories)
 
 
 def part_b(data):
-    elfes = [chunk for chunk in data.split('\n\n')]
-    calories = [sum([int(line) for line in elf.split('\n')]) for elf in elfes]
+    calories = parse_data(data)
     return sum(sorted(calories, reverse=True)[0:3])
 
 
