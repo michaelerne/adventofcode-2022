@@ -2,18 +2,54 @@ from run_util import run_puzzle
 
 
 def part_a(data):
-    input = [int(x) for x in data.split(',')]
-    return 0
+    games = [line.split(' ') for line in data.split('\n')]
+
+    result = {("A", "X"): 1 + 3, ("A", "Y"): 2 + 6, ("A", "Z"): 3 + 0,
+              ("B", "X"): 1 + 0, ("B", "Y"): 2 + 3, ("B", "Z"): 3 + 6,
+              ("C", "X"): 1 + 6, ("C", "Y"): 2 + 0, ("C", "Z"): 3 + 3}
+
+    score = sum([result[tuple(game)] for game in games])
+    return score
 
 
 def part_b(data):
-    input = [int(x) for x in data.split(',')]
-    return 0
+    games = [line.split(' ') for line in data.split('\n')]
+
+    goal_lose = {"B": "X", "C": "Y", "A": "Z"}
+    goal_win = {"A": "Y", "B": "Z", "C": "X"}
+    goal_draw = {"A": "X", "B": "Y", "C": "Z"}
+
+    def get_result(op_move, my_goal):
+        game_score = 0
+
+        if my_goal == "X":
+            my_move = goal_lose[op_move]
+            game_score += 0
+        elif my_goal == "Y":
+            my_move = goal_draw[op_move]
+            game_score += 3
+        else:  # elif my_goal == "Z":
+            my_move = goal_win[op_move]
+            game_score += 6
+
+        if my_move == "X":
+            game_score += 1
+        elif my_move == "Y":
+            game_score += 2
+        elif my_move == "Z":
+            game_score += 3
+
+        return game_score
+
+    score = sum([get_result(*game) for game in games])
+    return score
 
 
 def main():
     examples = [
-        ("""""", 1, 1)
+        ("""A Y
+B X
+C Z""", 15, 12)
     ]
     day = int(__file__.split('/')[-1].split('.')[0][-2:])
     run_puzzle(day, part_a, part_b, examples)
