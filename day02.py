@@ -22,22 +22,24 @@ def part_b(data):
     def get_result(op_move, my_goal):
         game_score = 0
 
-        if my_goal == "X":
-            my_move = goal_lose[op_move]
-            game_score += 0
-        elif my_goal == "Y":
-            my_move = goal_draw[op_move]
-            game_score += 3
-        else:  # elif my_goal == "Z":
-            my_move = goal_win[op_move]
-            game_score += 6
+        match my_goal:
+            case "X":
+                my_move = goal_lose[op_move]
+                game_score += 0
+            case "Y":
+                my_move = goal_draw[op_move]
+                game_score += 3
+            case _:  # case "Z":
+                my_move = goal_win[op_move]
+                game_score += 6
 
-        if my_move == "X":
-            game_score += 1
-        elif my_move == "Y":
-            game_score += 2
-        elif my_move == "Z":
-            game_score += 3
+        match my_move:
+            case "X":
+                game_score += 1
+            case "Y":
+                game_score += 2
+            case "Z":
+                game_score += 3
 
         return game_score
 
