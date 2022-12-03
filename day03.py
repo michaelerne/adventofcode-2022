@@ -7,15 +7,17 @@ def get_priority(item: str):
     else:
         return ord(item) - 96
 
+
 def part_a(data):
     input = [[*line] for line in data.split('\n')]
 
     score = 0
     for line in input:
-        left, right = set(line[0:len(line)//2]), set(line[len(line)//2:])
+        left, right = set(line[0:len(line) // 2]), set(line[len(line) // 2:])
         (common,) = left.intersection(right)
         score += get_priority(common)
     return score
+
 
 def part_b(data):
     input = [[*line] for line in data.split('\n')]
