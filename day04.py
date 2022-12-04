@@ -1,23 +1,21 @@
 from run_util import run_puzzle
-
+from parse import *
 
 def part_a(data):
-    assignments = [x.split(',') for x in data.split('\n')]
+    assignments = [parse("{:d}-{:d},{:d}-{:d}", x) for x in data.split('\n')]
     score = 0
-    for left_assignment, right_assignment in assignments:
-        left = set(range(int(left_assignment.split('-')[0]), int(left_assignment.split('-')[1]) + 1))
-        right = set(range(int(right_assignment.split('-')[0]), int(right_assignment.split('-')[1]) + 1))
+    for assignment in assignments:
+        left, right = set(range(assignment[0], assignment[1]+ 1)), set(range(assignment[2], assignment[3] + 1))
         if left.issubset(right) or right.issubset(left):
             score += 1
     return score
 
 
 def part_b(data):
-    assignments = [x.split(',') for x in data.split('\n')]
+    assignments = [parse("{:d}-{:d},{:d}-{:d}", x) for x in data.split('\n')]
     score = 0
-    for left_assignment, right_assignment in assignments:
-        left = set(range(int(left_assignment.split('-')[0]), int(left_assignment.split('-')[1]) + 1))
-        right = set(range(int(right_assignment.split('-')[0]), int(right_assignment.split('-')[1]) + 1))
+    for assignment in assignments:
+        left, right = set(range(assignment[0], assignment[1]+ 1)), set(range(assignment[2], assignment[3] + 1))
         if left.intersection(right):
             score += 1
     return score
