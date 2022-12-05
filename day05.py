@@ -29,9 +29,8 @@ def part_a(data):
     stacks, instructions = parse_input(data)
 
     for number_of_crates, source_stack, destination_stack in instructions:
-        for _ in range(number_of_crates):
-            moving_crate = stacks[source_stack].pop()
-            stacks[destination_stack].append(moving_crate)
+        moving_crates = [stacks[source_stack].pop() for _ in range(number_of_crates)]
+        stacks[destination_stack].extend(moving_crates)
 
     solution = ''.join([stack[-1] for stack in stacks])
     return solution
@@ -41,11 +40,8 @@ def part_b(data):
     stacks, instructions = parse_input(data)
 
     for number_of_crates, source_stack, destination_stack in instructions:
-        moving_crates = []
-        for _ in range(number_of_crates):
-            moving_crate = stacks[source_stack].pop()
-            moving_crates.insert(0, moving_crate)
-        stacks[destination_stack] += moving_crates
+        moving_crates = [stacks[source_stack].pop() for _ in range(number_of_crates)]
+        stacks[destination_stack].extend(reversed(moving_crates))
 
     solution = ''.join([stack[-1] for stack in stacks])
     return solution
