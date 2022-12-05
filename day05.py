@@ -1,10 +1,12 @@
-from run_util import run_puzzle
 from parse import parse
 
-def part_a(data):
+from run_util import run_puzzle
+
+
+def parse_input(data):
     field_text, instruction_text = data.split('\n\n')
     field_lines = field_text.split('\n')
-    stacks = [[] for _ in range(len(field_lines[0])//4 + 1)]
+    stacks = [[] for _ in range(len(field_lines[0]) // 4 + 1)]
     for line in reversed(field_lines[0:-1]):
         for stack, crate in enumerate([line[char] for char in range(1, len(line), 4)]):
             if crate == ' ':
@@ -13,33 +15,29 @@ def part_a(data):
                 stacks[stack].append(crate)
 
     instructions = [parse("move {:d} from {:d} to {:d}", line) for line in instruction_text.split('\n')]
+    return stacks, instructions
+
+
+def part_a(data):
+    stacks, instructions = parse_input(data)
 
     for number_of_crates, source_stack, destination_stack in instructions:
         for _ in range(number_of_crates):
-            moving_crate = stacks[source_stack-1].pop()
-            stacks[destination_stack-1].append(moving_crate)
+            moving_crate = stacks[source_stack - 1].pop()
+            stacks[destination_stack - 1].append(moving_crate)
 
     solution = ''.join([stack[-1] for stack in stacks])
     return solution
 
 
 def part_b(data):
-    field_text, instruction_text = data.split('\n\n')
-    field_lines = field_text.split('\n')
-    stacks = [[] for _ in range(len(field_lines[0])//4 + 1)]
-    for line in reversed(field_lines[0:-1]):
-        for stack, crate in enumerate([line[char] for char in range(1, len(line), 4)]):
-            if crate == ' ':
-                continue
-            else:
-                stacks[stack].append(crate)
-
-    instructions = [parse("move {:d} from {:d} to {:d}", line) for line in instruction_text.split('\n')]
+    stacks, instructions = parse_input(data)
 
     for number_of_crates, source_stack, destination_stack in instructions:
-        moving_crate = stacks[source_stack-1][-1 * number_of_crates:]
-        del stacks[source_stack-1][-1 * number_of_crates:]
-        stacks[destination_stack-1] += moving_crate
+        moving_crates = []
+        for _ in range(number_of_crates):
+            moving_crates.insert(0, stacks[source_stack - 1].pop())
+        stacks[destination_stack - 1] += moving_crates
 
     solution = ''.join([stack[-1] for stack in stacks])
     return solution
