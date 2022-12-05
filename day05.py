@@ -43,7 +43,8 @@ def part_b(data):
     for number_of_crates, source_stack, destination_stack in instructions:
         moving_crates = []
         for _ in range(number_of_crates):
-            moving_crates.insert(0, stacks[source_stack].pop())
+            moving_crate = stacks[source_stack].pop()
+            moving_crates.insert(0, moving_crate)
         stacks[destination_stack] += moving_crates
 
     solution = ''.join([stack[-1] for stack in stacks])
