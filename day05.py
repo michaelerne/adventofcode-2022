@@ -4,8 +4,7 @@ from run_util import run_puzzle
 
 
 def parse_input(data):
-    field_text, instruction_text = data.split('\n\n')
-    field_lines = field_text.split('\n')
+    field_lines, instruction_lines = [segment.split('\n') for segment in data.split('\n\n')]
     stacks = [[] for _ in range(len(field_lines[0]) // 4 + 1)]
     for line in field_lines[-2::-1]:
         for stack, crate in enumerate([line[char] for char in range(1, len(line), 4)]):
@@ -19,7 +18,7 @@ def parse_input(data):
         for number_of_crates, source_stack, destination_stack in
         [
             parse("move {:d} from {:d} to {:d}", line)
-            for line in instruction_text.split('\n')
+            for line in instruction_lines
         ]
     ]
     return stacks, instructions
