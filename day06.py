@@ -1,22 +1,19 @@
+from collections import deque
+
 from run_util import run_puzzle
 
 
-def part_a(data):
-    input = data
-    buffer = []
+def part_a(input):
+    buffer = deque(maxlen=4)
     for index, char in enumerate(input):
-        if len(buffer) >= 4:
-            del buffer[0]
         buffer.append(char)
         if len(set(buffer)) == 4:
             return index + 1
 
-def part_b(data):
-    input = data
-    buffer = []
+
+def part_b(input):
+    buffer = deque(maxlen=14)
     for index, char in enumerate(input):
-        if len(buffer) >= 14:
-            del buffer[0]
         buffer.append(char)
         if len(set(buffer)) == 14:
             return index + 1
