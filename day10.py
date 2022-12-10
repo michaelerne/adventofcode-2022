@@ -1,4 +1,4 @@
-from advent_of_code_ocr import convert_6
+from advent_of_code_ocr import convert_array_6
 
 from run_util import run_puzzle
 
@@ -22,14 +22,14 @@ def part_a(data):
 
 def part_b(data):
     signals = get_signals(data)
-    chars = ''.join([
+    chars = [
         '#' if index % 40 in [signals[index] - 1, signals[index], signals[index] + 1] else '.'
         for index in range(6 * 40)
-    ])
-    output = '\n'.join([
+    ]
+    output = [
         chars[i:i + 40] for i in range(0, len(chars), 40)
-    ])
-    return convert_6(output)
+    ]
+    return convert_array_6(output)
 
 
 def main():
