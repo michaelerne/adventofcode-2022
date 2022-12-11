@@ -63,7 +63,7 @@ def parse_monkeys(data: str, relaxed: bool) -> List[Monkey]:
     if relaxed:
         product = prod([monkey.divisor for monkey in monkeys])
         for idx in range(len(monkeys)):
-            monkeys[idx].inspect = lambda x=product: x % product
+            monkeys[idx].inspect = (lambda product: lambda x: x % product)(product)
 
     return monkeys
 
