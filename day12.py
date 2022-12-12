@@ -35,27 +35,20 @@ def parse_data(data):
 
 
 def get_shortest_path(grid, start, end):
-    queue = [(0, start)]
-
-    costs = {}
+    queue = deque([(0, start)])
+    seen = set()
 
     while queue:
-        cost, point = heappop(queue)
+        distance, point = queue.popleft()
         if point == end:
-            return cost
-
+            return distance
+        if point in seen:
+            continue
+        seen.add(point)
         for neighbor in get_neighbors(grid, *point):
-
-            if grid[neighbor] - grid[point] > 1:
-                continue
-
-            neighbor_cost = cost + 1
-            if neighbor in costs and costs[neighbor] <= neighbor_cost:
-                continue
-            costs[neighbor] = neighbor_cost
-            heappush(queue, (neighbor_cost, neighbor))
-
-    return float('inf')
+            if grid[neighbor] - grid[point] <= 1:
+                queue.append((distance + 1, neighbor))
+    return float("inf")
 
 
 def part_a(data):
