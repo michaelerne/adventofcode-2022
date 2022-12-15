@@ -1,4 +1,4 @@
-from heapq import heappop, heappush
+from collections import deque
 
 from run_util import run_puzzle
 
@@ -15,7 +15,6 @@ def get_neighbors(grid, x, y):
 
 
 def parse_data(data):
-
     grid = {
         (x, y): ord(cell)
         for y, line in enumerate(data.split('\n'))
